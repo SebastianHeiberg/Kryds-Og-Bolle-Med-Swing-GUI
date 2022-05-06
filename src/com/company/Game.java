@@ -18,7 +18,7 @@ public class Game {
   Button x3x2;
   Button x3x3;
   boolean player1 = true;
-  int turn;
+
 
 
   public Game() {
@@ -49,11 +49,6 @@ public class Game {
     frame.setPreferredSize(new Dimension(400,400));
     frame.pack();
     frame.setLocationRelativeTo(null);
-
-
-    this.turn = 0;
-
-
   }
 
   public static void main(String[] args) {
@@ -67,30 +62,79 @@ public class Game {
   }
 
   public void setBox (Button button){
-    if (player1) {
-      button.setLabel("X");
-    } else {
-      button.setLabel("0");
+    if (button.getLabel().isEmpty()) {
+      if (player1) {
+        button.setLabel("X");
+      } else {
+        button.setLabel("0");
+      }
+      switchTurn();
     }
   }
 
-
-  private void run() {
-
+  public void knapper () {
+    //første række
     x1x1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         setBox(x1x1);
-        switchTurn();
       }
     });
     x1x2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         setBox(x1x2);
-        switchTurn();
       }
     });
+    x1x3.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x1x3);
+      }
+    });
+    //anden række
+    x2x1.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x2x1);
+      }
+    });
+    x2x2.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x2x2);
+      }
+    });
+    x2x3.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x2x3);
+      }
+    });
+    // tredje række
+    x3x1.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x3x1);
+      }
+    });
+    x3x2.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x3x2);
+      }
+    });
+    x3x3.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        setBox(x3x3);
+      }
+    });
+  }
+
+  private void run() {
+  knapper();
+
 
   }
 }
