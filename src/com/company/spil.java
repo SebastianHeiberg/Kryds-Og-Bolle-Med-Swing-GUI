@@ -23,14 +23,30 @@ public class spil {
 
   public boolean win() {
 
+    //vertikalt
     for (int i = 0; i < alleKnapper.length; i += 3) {
-      if (!alleKnapper[i].getLabel().isEmpty() && alleKnapper[i].getLabel().equals(alleKnapper[i + 1].getLabel()) && alleKnapper[i].getLabel().equals(alleKnapper[i + 2].getLabel())) {
-        System.out.println("virker!");
+      if (!alleKnapper[i].getLabel().isEmpty() && alleKnapper[i].getLabel().equals(alleKnapper[i + 1].getLabel()) && alleKnapper[i+1].getLabel().equals(alleKnapper[i + 2].getLabel())) {
+        return true;
+      }
+    }
+    //horrisontalt
+    for (int i = 0; i < 3; i ++) {
+      if (!alleKnapper[i].getLabel().isEmpty() && alleKnapper[i].getLabel().equals(alleKnapper[i + 3].getLabel()) && alleKnapper[i+3].getLabel().equals(alleKnapper[i + 6].getLabel())) {
         return true;
       }
     }
 
-    return true;
+    //skrå
+    if (!alleKnapper[0].getLabel().isEmpty() && alleKnapper[0].getLabel().equals(alleKnapper[4].getLabel()) && alleKnapper[4].getLabel().equals(alleKnapper[8].getLabel())) {
+      return true;
+    }
+
+    if (!alleKnapper[2].getLabel().isEmpty() && alleKnapper[2].getLabel().equals(alleKnapper[4].getLabel()) && alleKnapper[4].getLabel().equals(alleKnapper[6].getLabel())) {
+      return true;
+    }
+
+
+    return false;
   }
 
   public spil() {
@@ -81,7 +97,9 @@ public class spil {
         button.setLabel("0");
       }
       setTur();
-      win();
+      if (win()) {
+        JOptionPane.showMessageDialog(frame, "Vi har fundet en vinder!");
+      }
     }
   }
 
