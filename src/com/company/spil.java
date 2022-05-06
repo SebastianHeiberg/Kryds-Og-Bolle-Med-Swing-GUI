@@ -17,8 +17,14 @@ public class spil {
   Button x3x1;
   Button x3x2;
   Button x3x3;
+  JSplitPane splitPane;
+  JPanel topPanel;
+  JPanel buttomPanel;
   Button[] alleKnapper;
   boolean player1tur = true;
+  JLabel player1;
+  JLabel player2;
+
 
 
   public boolean win() {
@@ -52,28 +58,42 @@ public class spil {
   public spil() {
     frame = new JFrame("Kryds og bolle");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-    //hele mit bræt
+    topPanel = new JPanel();
+    buttomPanel = new JPanel();
+    splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+    splitPane.setDividerLocation(50);
+    frame.add(splitPane);
+    splitPane.setTopComponent(topPanel);
+    splitPane.setBottomComponent(buttomPanel);
     frame.setVisible(true);
-    frame.setLayout(new GridLayout(3, 3));
+
+    //toppen
+    player1 = new JLabel("Player 1 wins: ");
+    player2 = new JLabel("Player 2 wins: ");
+    topPanel.add(player1);
+    topPanel.add(player2);
+
+    //bunden
+    buttomPanel.setLayout(new GridLayout(3,3));
     x1x1 = new Button();
-    frame.add(x1x1);
+    buttomPanel.add(x1x1);
     x1x2 = new Button();
-    frame.add(x1x2);
+    buttomPanel.add(x1x2);
     x1x3 = new Button();
-    frame.add(x1x3);
+    buttomPanel.add(x1x3);
     x2x1 = new Button();
-    frame.add(x2x1);
+    buttomPanel.add(x2x1);
     x2x2 = new Button();
-    frame.add(x2x2);
+    buttomPanel.add(x2x2);
     x2x3 = new Button();
-    frame.add(x2x3);
+    buttomPanel.add(x2x3);
     x3x1 = new Button();
-    frame.add(x3x1);
+    buttomPanel.add(x3x1);
     x3x2 = new Button();
-    frame.add(x3x2);
+    buttomPanel.add(x3x2);
     x3x3 = new Button();
-    frame.add(x3x3);
+    buttomPanel.add(x3x3);
+
     frame.setPreferredSize(new Dimension(400, 400));
     frame.pack();
     frame.setLocationRelativeTo(null);
