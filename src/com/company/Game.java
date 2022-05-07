@@ -65,7 +65,7 @@ public class Game {
       secondNumber = boardStatus[1][i];
       thirdNumber = boardStatus[2][i];
 
-      if (firstNumber != 0 && firstNumber == secondNumber && firstNumber == thirdNumber) {
+      if (firstNumber != 0 && firstNumber == secondNumber && secondNumber == thirdNumber) {
         return true;
       }
     }
@@ -76,7 +76,7 @@ public class Game {
       secondNumber = boardStatus[i][1];
       thirdNumber = boardStatus[i][2];
 
-      if (firstNumber != 0 && firstNumber == secondNumber && firstNumber == thirdNumber) {
+      if (firstNumber != 0 && firstNumber == secondNumber && secondNumber == thirdNumber) {
         return true;
       }
     }

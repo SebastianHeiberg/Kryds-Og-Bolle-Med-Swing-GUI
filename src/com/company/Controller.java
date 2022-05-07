@@ -6,15 +6,15 @@ import java.awt.*;
 public class Controller {
 
   final JFrame frame;
+  final Button x0x0;
+  final Button x0x1;
+  final Button x0x2;
+  final Button x1x0;
   final Button x1x1;
   final Button x1x2;
-  final Button x1x3;
+  final Button x2x0;
   final Button x2x1;
   final Button x2x2;
-  final Button x2x3;
-  final Button x3x1;
-  final Button x3x2;
-  final Button x3x3;
   final JSplitPane splitPane;
   final JPanel topPanel;
   final JPanel bottomPanel;
@@ -43,24 +43,24 @@ public class Controller {
 
     //bunden
     bottomPanel.setLayout(new GridLayout(3, 3));
+    x0x0 = new Button();
+    bottomPanel.add(x0x0);
+    x0x1 = new Button();
+    bottomPanel.add(x0x1);
+    x0x2 = new Button();
+    bottomPanel.add(x0x2);
+    x1x0 = new Button();
+    bottomPanel.add(x1x0);
     x1x1 = new Button();
     bottomPanel.add(x1x1);
     x1x2 = new Button();
     bottomPanel.add(x1x2);
-    x1x3 = new Button();
-    bottomPanel.add(x1x3);
+    x2x0 = new Button();
+    bottomPanel.add(x2x0);
     x2x1 = new Button();
     bottomPanel.add(x2x1);
     x2x2 = new Button();
     bottomPanel.add(x2x2);
-    x2x3 = new Button();
-    bottomPanel.add(x2x3);
-    x3x1 = new Button();
-    bottomPanel.add(x3x1);
-    x3x2 = new Button();
-    bottomPanel.add(x3x2);
-    x3x3 = new Button();
-    bottomPanel.add(x3x3);
 
     frame.setPreferredSize(new Dimension(400, 400));
     frame.pack();
@@ -72,16 +72,19 @@ public class Controller {
     new Controller().run();
   }
 
-  public void buttonActionToGame(Button button) {
-    if (button.getLabel().isEmpty()) {
+  public void buttonsActionInGame(Button button) {
+
+    if (button.getLabel().isEmpty()) { // dont want to override existing labels
       button.setLabel(thisGame.playerTakesTurn());
-      if (thisGame.win()) {
+      if (thisGame.win()) { //if the game is over
         JOptionPane.showMessageDialog(frame, "We have a winner!");
         thisGame.getCurrentPlayerTurn().increaseWins();
         updateAfterWin();
+      } else { // Its just time for another turn
+        thisGame.endTurn();
       }
-      thisGame.endTurn();
-      if (thisGame.getRoundCount() == 10){
+
+      if (thisGame.getRoundCount() == 9){ //no more options
         JOptionPane.showMessageDialog(frame, "Draw!");
         updateAfterWin();
       }
@@ -94,57 +97,58 @@ public class Controller {
     }
 
     thisGame.updateAfterGame();
-    player1.setText("Player 1 wins: " + thisGame.getPlayer1().getWins());
+
+    player1.setText("Player 1 wins: " + thisGame.getPlayer1().getWins() + "  | ");
     player2.setText("Player 2 wins: " + thisGame.getPlayer2().getWins());
   }
 
   public void createActionButtons() {
-    //første række
-    x1x1.addActionListener(e -> {
+//    første række
+    x0x0.addActionListener(e -> {
       thisGame.setBoardStatus(0, 0);
-      buttonActionToGame(x1x1);
+      buttonsActionInGame(x0x0);
     });
-    x1x2.addActionListener(e -> {
+    x0x1.addActionListener(e -> {
       thisGame.setBoardStatus(0, 1);
-      buttonActionToGame(x1x2);
+      buttonsActionInGame(x0x1);
     });
-    x1x3.addActionListener(e -> {
+    x0x2.addActionListener(e -> {
       thisGame.setBoardStatus(0, 2);
-      buttonActionToGame(x1x3);
+      buttonsActionInGame(x0x2);
     });
     //anden række
-    x2x1.addActionListener(e -> {
+    x1x0.addActionListener(e -> {
       thisGame.setBoardStatus(1, 0);
-      buttonActionToGame(x2x1);
+      buttonsActionInGame(x1x0);
     });
-    x2x2.addActionListener(e -> {
+    x1x1.addActionListener(e -> {
       thisGame.setBoardStatus(1, 1);
-      buttonActionToGame(x2x2);
+      buttonsActionInGame(x1x1);
     });
-    x2x3.addActionListener(e -> {
+    x1x2.addActionListener(e -> {
       thisGame.setBoardStatus(1, 2);
-      buttonActionToGame(x2x3);
+      buttonsActionInGame(x1x2);
     });
     // tredje række
-    x3x1.addActionListener(e -> {
+    x2x0.addActionListener(e -> {
       thisGame.setBoardStatus(2, 0);
-      buttonActionToGame(x3x1);
+      buttonsActionInGame(x2x0);
     });
-    x3x2.addActionListener(e -> {
+    x2x1.addActionListener(e -> {
       thisGame.setBoardStatus(2, 1);
-      buttonActionToGame(x3x2);
+      buttonsActionInGame(x2x1);
     });
-    x3x3.addActionListener(e -> {
+    x2x2.addActionListener(e -> {
       thisGame.setBoardStatus(2, 2);
-      buttonActionToGame(x3x3);
+      buttonsActionInGame(x2x2);
     });
   }
 
   private void run() {
-    allGameButtons = new Button[]{x1x1, x1x2, x1x3, x2x1, x2x2, x2x3, x3x1, x3x2, x3x3};
+    allGameButtons = new Button[]{x0x0, x0x1, x0x2, x1x0, x1x1, x1x2, x2x0, x2x1, x2x2};
     createActionButtons();
     thisGame = new Game();
-    player1.setText("Player 1 wins: " + thisGame.getPlayer1().getWins());
+    player1.setText("Player 1 wins: " + thisGame.getPlayer1().getWins()+ "  | ");
     player2.setText("Player 2 wins: " + thisGame.getPlayer1().getWins());
 
 
