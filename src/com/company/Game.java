@@ -115,11 +115,16 @@ public class Game {
     return currentPlayerTurn;
   }
 
-  public void setRoundCount(int roundCount) {
-    this.roundCount = roundCount;
-  }
-
-  public int getRoundCount() {
+   public int getRoundCount() {
     return roundCount;
   }
+
+
+  public void updateAfterGame(){
+    resetStatusBoard();
+    this.roundCount = 0;
+    this.currentPlayerTurn = player1;
+
+  }
+
 }

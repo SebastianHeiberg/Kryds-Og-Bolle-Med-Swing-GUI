@@ -84,7 +84,7 @@ public class Controller {
         updateAfterWin();
       }
       thegame.endTurn();
-      if (thegame.getRoundCount() == 9){
+      if (thegame.getRoundCount() == 10){
         JOptionPane.showMessageDialog(frame, "Draw!");
         updateAfterWin();
       }
@@ -95,12 +95,10 @@ public class Controller {
     for (Button button : allGameButtons) {
       button.setLabel("");
     }
-    thegame.resetStatusBoard();
-    thegame.setRoundCount(0);
 
+    thegame.updateAfterGame();
     player1.setText("Player 1 wins: " + thegame.getPlayer1().getWins());
     player2.setText("Player 2 wins: " + thegame.getPlayer2().getWins());
-
   }
 
   public void createActionButtons() {
