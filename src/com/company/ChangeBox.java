@@ -6,8 +6,8 @@ import java.awt.event.ActionListener;
 
 public class ChangeBox implements ActionListener {
 
-  private boolean playerTurn;
-  private Button button;
+  private final boolean playerTurn;
+  private final Button button;
 
   public ChangeBox (boolean playerTurn, Button button) {
     this.playerTurn = playerTurn;

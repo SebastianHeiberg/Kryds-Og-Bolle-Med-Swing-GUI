@@ -1,15 +1,13 @@
 package com.company;
 
-import java.awt.*;
-
 public class Game {
 
-  private Player player1;
-  private Player player2;
+  private final Player player1;
+  private final Player player2;
   private Player currentPlayerTurn;
-  private int[][] boardStatus;
+  private final int[][] boardStatus;
   private int roundCount;
-  private int currentPlayerValue; //brugt i boardstatus, player1 = 1 og player2 = 2
+  private int currentPlayerValue; //brugt i board-status, player1 = 1 og player2 = 2
 
   public Game() {
     this.player1 = new Player();
@@ -20,8 +18,8 @@ public class Game {
     this.currentPlayerValue = 1;
   }
 
-  public String playertakesTurn() {
-    String buttonText = "";
+  public String playerTakesTurn() {
+    String buttonText;
 
     if (currentPlayerTurn == player1) {
       buttonText = "X";
@@ -51,23 +49,23 @@ public class Game {
     this.roundCount++;
   }
 
-  public void setBoardStatus(int row, int collum) {
-    boardStatus[row][collum] = currentPlayerValue;
+  public void setBoardStatus(int row, int column) {
+    boardStatus[row][column] = currentPlayerValue;
   }
 
   public boolean win() {
 
     int firstNumber;
-    int secundNumber;
+    int secondNumber;
     int thirdNumber;
 
     //vertical
     for (int i = 0; i < 3; i ++) {
       firstNumber = boardStatus[0][i];
-      secundNumber = boardStatus[1][i];
+      secondNumber = boardStatus[1][i];
       thirdNumber = boardStatus[2][i];
 
-      if (firstNumber != 0 && firstNumber == secundNumber && firstNumber == thirdNumber) {
+      if (firstNumber != 0 && firstNumber == secondNumber && firstNumber == thirdNumber) {
         return true;
       }
     }
@@ -75,10 +73,10 @@ public class Game {
     //horizontal
     for (int i = 0; i < 3; i ++) {
       firstNumber = boardStatus[i][0];
-      secundNumber = boardStatus[i][1];
+      secondNumber = boardStatus[i][1];
       thirdNumber = boardStatus[i][2];
 
-      if (firstNumber != 0 && firstNumber == secundNumber && firstNumber == thirdNumber) {
+      if (firstNumber != 0 && firstNumber == secondNumber && firstNumber == thirdNumber) {
         return true;
       }
     }
@@ -88,11 +86,7 @@ public class Game {
       return true;
     }
 
-    if (boardStatus[0][2] != 0 && boardStatus[0][2] == boardStatus[1][1] && boardStatus[1][1] == boardStatus[2][0]) {
-      return true;
-    }
-
-    return false;
+    return boardStatus[0][2] != 0 && boardStatus[0][2] == boardStatus[1][1] && boardStatus[1][1] == boardStatus[2][0];
   }
 
   public void resetStatusBoard() {
