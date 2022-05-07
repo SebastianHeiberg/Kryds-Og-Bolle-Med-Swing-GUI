@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class spil {
+public class Controller {
 
   JFrame frame;
   Button x1x1;
@@ -20,42 +20,12 @@ public class spil {
   JSplitPane splitPane;
   JPanel topPanel;
   JPanel buttomPanel;
-  Button[] alleKnapper;
-  boolean player1tur = true;
+  Button[] allGameButtons;
   JLabel player1;
   JLabel player2;
+  Game thegame;
 
-
-
-  public boolean win() {
-
-    //vertikalt
-    for (int i = 0; i < alleKnapper.length; i += 3) {
-      if (!alleKnapper[i].getLabel().isEmpty() && alleKnapper[i].getLabel().equals(alleKnapper[i + 1].getLabel()) && alleKnapper[i+1].getLabel().equals(alleKnapper[i + 2].getLabel())) {
-        return true;
-      }
-    }
-    //horrisontalt
-    for (int i = 0; i < 3; i ++) {
-      if (!alleKnapper[i].getLabel().isEmpty() && alleKnapper[i].getLabel().equals(alleKnapper[i + 3].getLabel()) && alleKnapper[i+3].getLabel().equals(alleKnapper[i + 6].getLabel())) {
-        return true;
-      }
-    }
-
-    //skrå
-    if (!alleKnapper[0].getLabel().isEmpty() && alleKnapper[0].getLabel().equals(alleKnapper[4].getLabel()) && alleKnapper[4].getLabel().equals(alleKnapper[8].getLabel())) {
-      return true;
-    }
-
-    if (!alleKnapper[2].getLabel().isEmpty() && alleKnapper[2].getLabel().equals(alleKnapper[4].getLabel()) && alleKnapper[4].getLabel().equals(alleKnapper[6].getLabel())) {
-      return true;
-    }
-
-
-    return false;
-  }
-
-  public spil() {
+  public Controller() {
     frame = new JFrame("Kryds og bolle");
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     topPanel = new JPanel();
@@ -68,13 +38,13 @@ public class spil {
     frame.setVisible(true);
 
     //toppen
-    player1 = new JLabel("Player 1 wins: ");
-    player2 = new JLabel("Player 2 wins: ");
+    player1 = new JLabel();
+    player2 = new JLabel();
     topPanel.add(player1);
     topPanel.add(player2);
 
     //bunden
-    buttomPanel.setLayout(new GridLayout(3,3));
+    buttomPanel.setLayout(new GridLayout(3, 3));
     x1x1 = new Button();
     buttomPanel.add(x1x1);
     x1x2 = new Button();
@@ -101,91 +71,113 @@ public class spil {
 
   public static void main(String[] args) {
     // write your code here
-    spil game = new spil();
+    Controller game = new Controller();
     game.run();
   }
 
-  public void setTur() {
-    this.player1tur = !player1tur;
-  }
-
-  public void knapAction(Button button) {
+  public void buttonActionToGame(Button button) {
     if (button.getLabel().isEmpty()) {
-      if (player1tur) {
-        button.setLabel("X");
-      } else {
-        button.setLabel("0");
+      button.setLabel(thegame.playertakesTurn());
+      if (thegame.win()) {
+        JOptionPane.showMessageDialog(frame, "We have a winner!");
+        thegame.getCurrentPlayerTurn().increaseWins();
+        updateAfterWin();
       }
-      setTur();
-      if (win()) {
-        JOptionPane.showMessageDialog(frame, "Vi har fundet en vinder!");
+      thegame.endTurn();
+      if (thegame.getRoundCount() == 9){
+        JOptionPane.showMessageDialog(frame, "Draw!");
+        updateAfterWin();
       }
     }
   }
 
-  public void tilføjActionTilKnapper() {
+  private void updateAfterWin() {
+    for (Button button : allGameButtons) {
+      button.setLabel("");
+    }
+    thegame.resetStatusBoard();
+    thegame.setRoundCount(0);
+
+    player1.setText("Player 1 wins: " + thegame.getPlayer1().getWins());
+    player2.setText("Player 2 wins: " + thegame.getPlayer2().getWins());
+
+  }
+
+  public void createActionButtons() {
     //første række
     x1x1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x1x1);
+        thegame.setBoardStatus(0, 0);
+        buttonActionToGame(x1x1);
       }
     });
     x1x2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x1x2);
+        thegame.setBoardStatus(0, 1);
+        buttonActionToGame(x1x2);
       }
     });
     x1x3.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x1x3);
+        thegame.setBoardStatus(0, 2);
+        buttonActionToGame(x1x3);
       }
     });
     //anden række
     x2x1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x2x1);
+        thegame.setBoardStatus(1, 0);
+        buttonActionToGame(x2x1);
       }
     });
     x2x2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x2x2);
+        thegame.setBoardStatus(1, 1);
+        buttonActionToGame(x2x2);
       }
     });
     x2x3.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x2x3);
+        thegame.setBoardStatus(1, 2);
+        buttonActionToGame(x2x3);
       }
     });
     // tredje række
     x3x1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x3x1);
+        thegame.setBoardStatus(2, 0);
+        buttonActionToGame(x3x1);
       }
     });
     x3x2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x3x2);
+        thegame.setBoardStatus(2, 1);
+        buttonActionToGame(x3x2);
       }
     });
     x3x3.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        knapAction(x3x3);
+        thegame.setBoardStatus(2, 2);
+        buttonActionToGame(x3x3);
       }
     });
   }
 
   private void run() {
-    alleKnapper = new Button[]{x1x1, x1x2, x1x3, x2x1, x2x2, x2x3, x3x1, x3x2, x3x3};
-    tilføjActionTilKnapper();
+    allGameButtons = new Button[]{x1x1, x1x2, x1x3, x2x1, x2x2, x2x3, x3x1, x3x2, x3x3};
+    createActionButtons();
+    thegame = new Game();
+    player1.setText("Player 1 wins: " + thegame.getPlayer1().getWins());
+    player2.setText("Player 2 wins: " + thegame.getPlayer1().getWins());
 
 
   }
