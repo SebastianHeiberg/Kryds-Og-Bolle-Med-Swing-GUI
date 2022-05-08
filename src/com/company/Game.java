@@ -27,7 +27,7 @@ public class Game {
       buttonText = "O";
     }
 
-     return buttonText;
+    return buttonText;
   }
 
   public void endTurn() {
@@ -60,7 +60,7 @@ public class Game {
     int thirdNumber;
 
     //vertical
-    for (int i = 0; i < 3; i ++) {
+    for (int i = 0; i < 3; i++) {
       firstNumber = boardStatus[0][i];
       secondNumber = boardStatus[1][i];
       thirdNumber = boardStatus[2][i];
@@ -71,7 +71,7 @@ public class Game {
     }
 
     //horizontal
-    for (int i = 0; i < 3; i ++) {
+    for (int i = 0; i < 3; i++) {
       firstNumber = boardStatus[i][0];
       secondNumber = boardStatus[i][1];
       thirdNumber = boardStatus[i][2];
@@ -92,7 +92,7 @@ public class Game {
   public void resetStatusBoard() {
     for (int i = 0; i < 3; i++) {
       for (int j = 0; j < 3; j++) {
-        boardStatus [i][j] = 0;
+        boardStatus[i][j] = 0;
       }
     }
   }
@@ -109,12 +109,11 @@ public class Game {
     return currentPlayerTurn;
   }
 
-   public int getRoundCount() {
+  public int getRoundCount() {
     return roundCount;
   }
 
-
-  public void updateAfterGame(){
+  public void updateAfterGame() {
     resetStatusBoard();
     this.roundCount = 0;
     this.currentPlayerTurn = player1;

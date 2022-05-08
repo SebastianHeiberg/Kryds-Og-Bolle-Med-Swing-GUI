@@ -3,12 +3,12 @@ package com.company;
 public class Player {
   private int wins;
 
-  public Player (){
+  public Player() {
     this.wins = 0;
   }
 
-  public void increaseWins(){
-    this.wins ++;
+  public void increaseWins() {
+    this.wins++;
   }
 
   public int getWins() {

@@ -84,7 +84,7 @@ public class Controller {
         thisGame.endTurn();
       }
 
-      if (thisGame.getRoundCount() == 9){ //no more options
+      if (thisGame.getRoundCount() == 9) { //no more options
         JOptionPane.showMessageDialog(frame, "Draw!");
         updateAfterWin();
       }
@@ -148,7 +148,7 @@ public class Controller {
     allGameButtons = new Button[]{x0x0, x0x1, x0x2, x1x0, x1x1, x1x2, x2x0, x2x1, x2x2};
     createActionButtons();
     thisGame = new Game();
-    player1.setText("Player 1 wins: " + thisGame.getPlayer1().getWins()+ "  | ");
+    player1.setText("Player 1 wins: " + thisGame.getPlayer1().getWins() + "  | ");
     player2.setText("Player 2 wins: " + thisGame.getPlayer1().getWins());
 
 
